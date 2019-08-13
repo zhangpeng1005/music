@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/vue"></script>
+		<style type="text/css">
+			#p{
+				animation: imgRotate 10s linear infinite;		
+			}
+			@keyframes imgRotate{
+				from{
+					transform: rotate(0deg);
+				}
+				to{
+					transform: rotate(360deg);
+				}
+			}
+			#stop{
+				animation-play-state: paused;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--
+        	作者：872055049@qq.com
+        	时间：2019-07-29
+        	描述：唯美音乐
+      -->
+		<div class="container">
+			<div class="page-header">
+				<div class="row">
+					<h1 class="col-md-8">音乐<small>唯美音乐</small></h1>
+					<div class="col-md-4">						
+						<input id="song-name" class="input-lg" placeholder="搜索音乐、歌单、歌星" type="text"/>
+						<a id="song" href="songs.html">
+		        			<button onclick="song(this)" class="btn btn-danger btn-lg">搜索</button>
+	        			</a>
+					</div>
+				</div>
+			</div>
+			<div class="">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand" href="index.html" style="background-color: #31C27C;color: red;">首页</a>
+				    </div>
+				
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li><a href="singer.html">歌手 <span class="sr-only">(current)</span></a></li>
+				        <li><a href="#">排行榜</a></li>
+				        <li><a href="#">分类歌单</a></li>
+				         <li><a href="#" style="font-size: 25px;color: red;">音乐</a></li>
+				        <li><a href="#">MV</a></li>
+				      </ul>
+				    </div><!-- /.navbar-collapse -->
+				  </div><!-- /.container-fluid -->
+				</nav>
+			</div>
+		</div>
+		<div class="container">
+			
+			<!--内容-->
+			<div class="row" id="app">
+				<!--左侧-->
+				<div class="clo-xs-12 col-md-3 col-lg-3" onclick="stop()">
+					<audio id="musicPlayer" :src="'https://v1.itooi.cn/netease/url?id='+songs[0].privilege.id+'&quality=flac'" controls="controls"></audio>
+					<div class="alert alert-info text-center" role="alert">
+						<img id="musicImg" class="img-circle img-responsive" :src="songs[0].al.picUrl" />
+					</div>
+					
+				</div>
+				<div class="col-xs-12 col-md-9 col-lg-9">
+					<table class="table table-striped">
+						<thead>
+							<th>歌曲名</th>
+							<th>歌手</th>
+							<th>专辑</th>
+							<th>播放</th>
+						</thead>
+						<tr v-for="s in songs">
+							<td>{{s.name}}</td>
+							<td>{{s.ar[0].name}}</td>
+							<td>{{s.alia}}</td>
+							<td>
+								<a v-if="s.mv!=0" :href="'video.html?id='+s.mv"><button class="btn btn-default">MV</button></a>
+								<button class="btn btn-danger"  :name="s.privilege.id" :id="s.al.picUrl" onclick="plays(this)">
+									<span class="glyphicon glyphicon-play-circle"></span>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<!--
+		        	作者：872055049@qq.com
+		        	时间：2019-07-29
+		        	描述：底部
+		        -->
+		<footer id="bottom" class="text-center">
+			<h4>版权所有&copy2019</h4>
+			<p>Copyright © 2018 - <span id="year"></span> Zhangpeng. All Rights Reserved.</p>
+			<h1>唯美音乐</h1>
+		</footer>
+		<script type="text/javascript">
+			//获取时间
+			$("#year").text(new Date().getFullYear());
+		    var a=GetRequest();
+			var songName = (a['songName']) //歌名
+			function GetRequest() {
+				var url = location.search; //获取url中"?"符后的字串
+				var theRequest = new Object();
+				 if (url.indexOf("?") != -1) {
+				    var str = url.substr(1);
+				    strs = str.split("&");
+				    for (var i = 0; i < strs.length; i++) {
+				       theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+				    }
+				}
+			   return theRequest;
+			};
+			var song_name="";
+			function song(element){
+				song_name = $("#song-name").val();
+				$("#song").attr("href","songs.html?songName="+song_name);
+			};
+			function stop(){
+				$("#musicImg").attr("id","stop");
+			};
+			function plays(element){
+				$("#musicImg").attr("src",element.id);
+				$("#musicImg").attr("id","p");
+				var url = "https://v1.itooi.cn/netease/url?id="+element.name+"&quality=flac"
+				$("#musicPlayer").attr("src",url);
+				 var audio = document.getElementById('musicPlayer'); 
+				  
+				 if(audio!==null){             
+				    //检测播放是否已暂停.audio.paused 在播放器播放时返回false.
+				  if(audio.paused)                     {                 
+				      audio.play();//audio.play();// 这个就是播放  
+				  }else{
+				   audio.pause();// 这个就是暂停
+				  }
+			 } 
+				
+			};
+			$.ajax({
+				type:"get",
+				url:"https://v1.itooi.cn/netease/search?keyword="+songName+"&type=song&pageSize=20&page=0",
+				async:true,
+				success: function(data){
+					var song = data.data.songs;
+					console.log(song);
+					$("#song-name").val(songName);
+					new Vue({
+						el: '#app',
+						 data: {
+						   songs: song
+						 }
+					})
+				}
+				
+			});
+		
+		</script>
+	</body>
+
+</html>

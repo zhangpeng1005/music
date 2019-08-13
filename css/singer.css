@@ -1,0 +1,10 @@
+#singer div img{
+	width: 100%;
+}
+#singer div p{
+	background-color: #285E8E;
+	color: white;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+}

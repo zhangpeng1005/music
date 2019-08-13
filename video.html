@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/vue"></script>
+	</head>
+	<body>
+	<!--
+        	作者：872055049@qq.com
+        	时间：2019-07-29
+        	描述：唯美音乐
+      -->
+		<div class="container">
+			<div class="page-header">
+				<div class="row">
+					<h1 class="col-md-8">音乐<small>唯美音乐</small></h1>
+					<div class="col-md-4">						
+						<input id="song-name" class="input-lg" placeholder="搜索音乐、歌单、歌星" type="text"/>
+						<a id="song" href="songs.html">
+		        			<button onclick="song(this)" class="btn btn-danger btn-lg">搜索</button>
+	        			</a>
+					</div>
+				</div>
+			</div>
+			<div class="">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand" href="index.html" style="background-color: #31C27C;color: red;">首页</a>
+				    </div>
+				
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li><a href="singer.html">歌手 <span class="sr-only">(current)</span></a></li>
+				        <li><a href="#">排行榜</a></li>
+				        <li><a href="#">分类歌单</a></li>
+				        <li><a href="#">音乐</a></li>
+				        <li><a href="#">MV</a></li>
+				      </ul>
+				    </div><!-- /.navbar-collapse -->
+				  </div><!-- /.container-fluid -->
+				</nav>
+			</div>
+		</div>
+		<div style="background-color: #333333;">
+			<div class="container">
+				<video width="100%" id="video" src=""  controls="true" autoplay="autoplay" poster=""  preload="auto" webkit-playsinline="true"></video>
+			</div>
+		</div>
+		<!--
+		        	作者：872055049@qq.com
+		        	时间：2019-07-29
+		        	描述：底部
+		        -->
+		<footer id="bottom" class="text-center">
+			<h4>版权所有&copy2019</h4>
+			<p>Copyright © 2018 - <span id="year"></span> Zhangpeng. All Rights Reserved.</p>
+			<h1>唯美音乐</h1>
+		</footer>
+		<script type="text/javascript">
+			//a标签带参传值
+			function song(element){
+				var song_name = $("#song-name").val();
+				$("#song").attr("href","songs.html?songName="+song_name);
+				$("#song-name").val(songName);
+			};
+		    var a=GetRequest();
+			function GetRequest() {
+				var url = location.search; //获取url中"?"符后的字串
+				var theRequest = new Object();
+				 if (url.indexOf("?") != -1) {
+				    var str = url.substr(1);
+				    strs = str.split("&");
+				    for (var i = 0; i < strs.length; i++) {
+				       theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+				    }
+				};
+			   return theRequest;
+			};
+			var url = "https://v1.itooi.cn/netease/mvUrl?id="+a.id+"&quality=1080";
+			$("#video").attr("src",url);
+		</script>
+	</body>
+</html>

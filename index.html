@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/vue"></script>
+		<style type="text/css">
+			#xuanzhun{
+
+    animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate{from{transform: rotate(0deg)}
+    to{transform: rotate(359deg)}
+}
+		</style>
+	</head>
+
+	<body>
+		<!--
+        	作者：872055049@qq.com
+        	时间：2019-07-29
+        	描述：唯美音乐
+      -->
+		<div class="container">
+			<div class="page-header">
+				<div class="row">
+					<h1 class="col-md-8">音乐<small>唯美音乐</small></h1>
+					<div class="col-md-4">						
+						<input id="song-name" class="input-lg" placeholder="搜索音乐、歌单、歌星" type="text"/>
+						<a id="song" href="songs.html">
+		        			<button onclick="song(this)" class="btn btn-danger btn-lg">搜索</button>
+	        			</a>
+					</div>
+				</div>
+			</div>
+			<div class="">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand" href="index.html" style="background-color: #31C27C;color: red;">首页</a>
+				    </div>
+				
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li><a href="singer.html">歌手 <span class="sr-only">(current)</span></a></li>
+				        <li><a href="#">排行榜</a></li>
+				        <li><a href="#">分类歌单</a></li>
+				        <li><a href="#">音乐</a></li>
+				        <li><a href="#">MV</a></li>
+				      </ul>
+				    </div><!-- /.navbar-collapse -->
+				  </div><!-- /.container-fluid -->
+				</nav>
+			</div>
+		</div>
+		<div class="bg container">
+			<img src="img/bg.jpg"/>
+			<p>你关注的歌手在这里<br><span>快速起歌，想听就听！</span></p>
+		</div>
+		<!--
+        	作者：872055049@qq.com
+        	时间：2019-08-03
+        	描述：排行榜
+        -->
+        <div class="phb">
+	        <div class="container">
+	        	<h1 class="text-center">排行榜</h1>
+	        	<div class="row" id="app">
+	        		<div class="col-md-4 col-xs-6" v-for="s in songs">
+	        			<img :src="s.cover"/>
+	        			<p>{{s.lastRank}}.{{s.name}}</p>
+	        			<p>{{s.artistName}}</p>
+	        			<p class="an"><a :href="'video.html?id='+s.id"><span class="glyphicon glyphicon-play sj"></span></a></p>
+	        		</div>
+	        		
+	        	</div>
+	        </div>
+        </div>
+		<!--
+		        	作者：872055049@qq.com
+		        	时间：2019-07-29
+		        	描述：底部
+		        -->
+		<footer id="bottom" class="text-center">
+			<h4>版权所有&copy2019</h4>
+			<p>Copyright © 2018 - <span id="year"></span> Zhangpeng. All Rights Reserved.</p>
+			<h1>唯美音乐</h1>
+		</footer>
+		<script type="text/javascript">
+			//a标签带参传值
+			function song(element){
+				var song_name = $("#song-name").val();
+				$("#song").attr("href","songs.html?songName="+song_name);
+				$("#song-name").val(songName);
+			};
+			//排行榜
+			$.ajax({
+				type:"get",
+				url:"https://v1.itooi.cn/netease/mv/top?pageSize=9&page=0",
+				async:true,
+				success: function(data){
+					var song = data.data;
+					console.log(data);
+					new Vue({
+						el: '#app',
+						 data: {
+						   songs: song
+						 }
+					})
+				}
+			})
+		</script>
+	</body>
+
+</html>

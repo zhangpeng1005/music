@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/vue"></script>
+		<link rel="stylesheet" type="text/css" href="css/singer.css"/>
+	</head>
+	<body>
+		<!--
+        	作者：872055049@qq.com
+        	时间：2019-07-29
+        	描述：唯美音乐
+      -->
+		<div class="container">
+			<div class="page-header">
+				<div class="row">
+					<h1 class="col-md-8">音乐<small>唯美音乐</small></h1>
+					<div class="col-md-4">						
+						<input id="song-name" class="input-lg" placeholder="搜索歌手..." type="text"/>
+						<a id="song" href="">
+		        			<button onclick="song(this)" class="btn btn-danger btn-lg">搜索</button>
+	        			</a>
+					</div>
+				</div>
+			</div>
+			<div class="">
+				<nav class="navbar navbar-default">
+				  <div class="container-fluid">
+				    <!-- Brand and toggle get grouped for better mobile display -->
+				    <div class="navbar-header">
+				      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				        <span class="sr-only">Toggle navigation</span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+				      <a class="navbar-brand" href="index.html" style="background-color: #31C27C;color: red;">首页</a>
+				    </div>
+				
+				    <!-- Collect the nav links, forms, and other content for toggling -->
+				    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				      <ul class="nav navbar-nav">
+				        <li><a href="singer.html" style="color:red">歌手</a></li>
+				        <li><a href="#">排行榜</a></li>
+				        <li><a href="#">分类歌单</a></li>
+				        <li><a href="#">MV</a></li>
+				      </ul>
+				    </div><!-- /.navbar-collapse -->
+				  </div><!-- /.container-fluid -->
+				</nav>
+			</div>
+		</div>
+		<!--
+        	作者：872055049@qq.com
+        	时间：2019-08-03
+        	描述：歌手列表
+        -->
+        <div class="container">
+        	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			  <!-- Indicators -->
+			  <ol class="carousel-indicators">
+			    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			  </ol>
+			
+			  <!-- Wrapper for slides -->
+			  <div class="carousel-inner" role="listbox">
+			    <div class="item active">
+			      <div class="row" id="singer">
+			      	<div class="col-md-3">
+			      		<img src="img/bg.jpg"/>
+			      		<p>你一定没注意到我微笑说没事时眼里的绝望</p>
+			      	</div>
+			      	<div class="col-md-3">
+			      		<img src="img/bg.jpg"/>
+			      		<p>禁止想象 · 耳机里的万种风情</p>
+			      	</div>
+			      	<div class="col-md-3">
+			      		<img src="img/bg.jpg"/>
+			      		<p>燃脂秘方 · 热血强音来助阵</p>
+			      	</div>
+			      	<div class="col-md-3">
+			      		<img src="img/bg.jpg"/>
+			      		<p>激越回响 · 燃炸Brostep</p>
+			      	</div>			      
+			    </div>
+			  </div>
+			
+			  <!-- Controls -->
+			  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			    <span class="sr-only">Previous</span>
+			  </a>
+			  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+			</div>
+        </div>
+	</body>
+</html>
